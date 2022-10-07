@@ -11,13 +11,13 @@
     <!-- Bootstrap icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
+    <link href="../css/styles.css" rel="stylesheet" />
   </head>
   <body>
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container px-4 px-lg-5">
-        <a class="navbar-brand" href="/home">Nong SHOP</a>
+        <a class="navbar-brand" href="/user/home">Nong SHOP</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -52,35 +52,69 @@
     <!-- Product section-->
     <section>
       <div class="container">
-        <h1 class="display-5 fw-bolder text-center">상품등록</h1>
+        <h1 class="display-5 fw-bolder text-center">결제하기</h1>
       </div>
     </section>
     <!-- Related items section-->
     <section class="py-5 bg-light">
       <div class="container px-4 px-lg-5 mt-5">
         <form>
-          <h2>상품정보</h2>
+          <h2>주문자정보</h2>
           <div class="mb-3">
-            <label for="product" class="form-label">상품수량</label>
-            <input type="number" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
-            <!-- <div id="ReqHelp" class="form-text">요청사항을 입력해주세요</div> -->
+            <label for="userReq" class="form-label">요청사항</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+            <div id="ReqHelp" class="form-text">요청사항을 입력해주세요</div>
           </div>
           <div class="mb-3">
-            <label for="주소" class="form-label">상품가격</label>
-            <input type="number" class="form-control" id="exampleInputPassword1" />
-            <div id="ReqHelp" class="form-text">10000원일 경우 10000으로 입력해주세요</div>
-          </div>
-          <div class="mb-3">
-            <label for="주소" class="form-label">상품상세설명</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" />
-          </div>
-          <div class="mb-3">
-            <label for="주소" class="form-label">상품이미지</label>
-            <input type="image" class="form-control" id="exampleInputPassword1" />
+            <label for="주소" class="form-label">주소</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" />
           </div>
 
-          <button type="submit" class="btn btn-primary">상품등록하기</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">주문</th>
+              <th scope="col">상품명</th>
+              <th scope="col">수량</th>
+              <th scope="col">가격</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>검은신발</td>
+              <td>1</td>
+              <td>10,000원</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>회색신발</td>
+              <td>1</td>
+              <td>12,000원</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td>@</td>
+              <td>@</td>
+              <td>@</td>
+            </tr>
+            <tr>
+              <th scope="row">총합</th>
+              <td></td>
+              <td>2개</td>
+              <td>@22,000원</td>
+            </tr>
+            <tr>
+              <th scope="row"></th>
+              <td></td>
+              <td></td>
+              <td><button type="button" class="btn btn-secondary btn-lg">결제하기</button></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
     <!-- Footer-->

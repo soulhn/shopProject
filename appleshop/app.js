@@ -3,14 +3,13 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const session = require("express-session");
+var oracledb = require("oracledb");
+oracledb.autoCommit = true;
 
-var payMentRouter = require("./routes/payment");
-var homeRouter = require("./routes/home");
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
-var detailRouter = require("./routes/detail");
-var addProductRouter = require("./routes/addProduct");
-var myloginRouter = require("./routes/mylogin");
+//db 설치 아직안함
+
+var shopRouter = require("./routes/index");
 
 var app = express();
 
@@ -24,13 +23,29 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
-app.use("/home", homeRouter);
-app.use("/detail", detailRouter);
-app.use("/payment", payMentRouter);
-app.use("/addProduct", addProductRouter);
-app.use("/mylogin", myloginRouter);
+// 세션 설정
+app.use(
+  // request를 통해 세션 접근 가능 ex) req.session
+  session({
+    // key: "loginData",
+    secret: "keyboard cat", // 반드시 필요한 옵션. 세션을 암호화해서 저장함
+    resave: false, // 세션 변경되지 않아도 계속 저장됨. 기본값은 true지만 false로 사용 권장
+    saveUninitialized: true, // 세션을 초기값이 지정되지 않은 상태에서도 강제로 저장. 모든 방문자에게 고유 식별값 주는 것.
+    cookie: {
+      maxAge: 3600000,
+    },
+    rolling: true,
+    // store: new MYSQLStore(connt),
+  })
+);
+
+app.use("/", shopRouter);
+// app.use("/users", usersRouter);
+// app.use("/home", homeRouter);
+// app.use("/detail", detailRouter);
+// app.use("/payment", payMentRouter);
+// app.use("/addProduct", addProductRouter);
+// app.use("/mylogin", myloginRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
