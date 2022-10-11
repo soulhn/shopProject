@@ -16,33 +16,47 @@ router.get("/", (req, res) => {
 
 //로그인
 router.post("/login", async (req, res) => {
-  const auth = req.body.loginId;
-  result = await selectDatabase();
+  const loginEmail = req.body.loginEmail;
+  const loginPwd = req.body.loginPwd;
 
-  console.log(result);
-  // console.log(auth);
-  if (auth == "admin") {
-    if (req.session.user) {
-      res.redirect("/admin/main");
+  //이메일, 비밀번호 DB에서 조회
+  result = await selectDatabase(loginEmail, loginPwd);
+  try {
+    // result == undefined 인경우
+    // 조회되는 아이디,비번 x
+    if (result == undefined) {
+      res.send('<script>alert("아이디 또는 비밀번호를 잘못 입력했습니다."); location.href = document.referrer;</script>');
     } else {
-      // 세션 없는 admin일 경우 만들어줌
-      req.session.user = {
-        sessionId: auth,
-      };
-      res.redirect("/admin/main");
+      // 조회되는 유저정보가 있는경우
+      const userName = result.USER_NAME;
+
+      // 일반회원인지 관리자인지 판단
+      if (result.USER_AUTH == "관리자") {
+        if (req.session.user) {
+          res.redirect("/admin/main"); // 관리자 페이지 이동
+        } else {
+          // 세션 생성
+          req.session.user = {
+            sessionEmail: loginEmail,
+            sessionName: userName,
+          };
+          res.redirect("/admin/main");
+        }
+      } else if (result.USER_AUTH == "일반회원") {
+        if (req.session.user) {
+          res.redirect("/user/home"); // 유저 페이지 이동
+        } else {
+          // 세션 생성
+          req.session.user = {
+            sessionEmail: loginEmail,
+            sessionName: userName,
+          };
+          res.redirect("/user/home");
+        }
+      }
     }
-  } else if (auth == null || auth == "") {
-    return res.send('<script>alert("아이디 또는 비밀번호를 잘못 입력했습니다."); location.href = document.referrer;</script>');
-  } else {
-    if (req.session.user) {
-      res.redirect("/user/home");
-    } else {
-      // 세션 없는 admin일 경우 만들어줌
-      req.session.user = {
-        sessionId: auth,
-      };
-      res.redirect("/user/home");
-    }
+  } catch (error) {
+    console.log(error.message);
   }
 });
 
@@ -50,30 +64,34 @@ router.post("/login", async (req, res) => {
 router.get("/logout", async (req, res) => {
   if (req.session.user) {
     req.session.destroy(function (err) {
+      // 세션 삭제
       if (err) throw err;
-      res.send("<script>alert('로그아웃 되었습니다.'); location.href='/'</script>");
+      res.send("<script>alert('로그아웃 되었습니다.'); location.href='/'</script>"); // 로그인 페이지로 이동
     });
   } else {
-    res.redirect("/user/home");
+    res.redirect("/");
   }
 });
 
 //select
-async function selectDatabase() {
-  let connection = await oracledb.getConnection(ORACLE_CONFIG);
+async function selectDatabase(loginId, loginPwd) {
+  try {
+    let connection = await oracledb.getConnection(ORACLE_CONFIG);
 
-  let binds = {};
-  let options = {
-    outFormat: oracledb.OUT_FORMAT_OBJECT, // query result format
-  };
+    let sql = "select user_email, user_name, user_auth from member \
+                    where user_email = :email and user_pwd = :pwd";
+    let param = [loginId, loginPwd]; // 조건 값
+    let options = {
+      outFormat: oracledb.OUT_FORMAT_OBJECT, // query result format
+    };
 
-  // let result = await connection.execute("select * from member", binds, options);
-  let result = await connection.execute("select * from member where user_auth = :auth", ["일반"], options);
+    let result = await connection.execute(sql, param, options);
 
-  // console.log(result.rows);
+    await connection.close();
 
-  await connection.close();
-
-  return result.rows;
+    return result.rows[0];
+  } catch (error) {
+    console.log(error.message);
+  }
 }
 module.exports = router;

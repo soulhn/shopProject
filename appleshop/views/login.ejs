@@ -38,12 +38,12 @@
         <h1 class="h3 mb-3 fw-normal">로그인해주세요</h1>
 
         <div class="form-floating">
-          <input type="text" class="form-control" name="loginId" placeholder="abc123" />
-          <label for="floatingInput">Email address</label>
+          <input type="email" class="form-control" name="loginEmail" placeholder="abc123@abc.com" required />
+          <label for="floatingInput">이메일 입력해주세요</label>
         </div>
         <div class="form-floating">
-          <input type="password" class="form-control" id="floatingPassword" placeholder="Password" />
-          <label for="floatingPassword">Password</label>
+          <input type="password" class="form-control" name="loginPwd" id="floatingPassword" placeholder="Password" required />
+          <label for="floatingPassword">패스워드 입력해주세요</label>
         </div>
 
         <button id="login" class="w-100 btn btn-lg btn-primary">Sign in</button>
