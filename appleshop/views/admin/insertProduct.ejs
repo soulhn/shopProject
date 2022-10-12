@@ -1,0 +1,79 @@
+<!-- Product section-->
+<section>
+  <div class="container">
+    <h1 class="display-5 fw-bolder text-center">상품등록</h1>
+  </div>
+</section>
+<!-- Related items section-->
+<section class="py-5 bg-light">
+  <div class="container px-4 px-lg-5 mt-5">
+    <form action="" id="insertProduct" method="post" enctype="multipart/form-data" autocomplete="off" accept-charset="UTF-8">
+      <h2>상품정보등록</h2>
+      <input type="hidden" name="productDetail" />
+      <!-- 물품명 -->
+      <div class="mb-3">
+        <label for="productName" class="form-label">물품명</label>
+        <input type="text" class="form-control" name="productName" required />
+      </div>
+      <!-- 물품설명 -->
+      <div class="mb-3">
+        <label for="editor" class="form-label">물품설명</label>
+        <input type="editor" name="editor" required />
+      </div>
+      <!-- 물품가격 -->
+      <div class="mb-3">
+        <label for="productPrice" class="form-label">물품가격</label>
+        <input type="number" name="productPrice" class="form-control" required />
+        <div class="form-text">단위를 제외한 값만 입력해주세요! ex)10000</div>
+      </div>
+      <!-- 물품분류 -->
+      <div class="mb-3">
+        <label for="productDiv" class="form-label">물품분류</label>
+        <input type="text" class="form-control" name="productDiv" required />
+      </div>
+      <!-- 물품수량 -->
+      <div class="mb-3">
+        <label for="productCount" class="form-label">물품수량</label>
+        <input type="number" class="form-control" name="productCount" required />
+      </div>
+
+      <div class="mb-3"><img id="preview" /></div>
+      <div class="mb-3">
+        <label for="file" class="form-label">상품이미지</label>
+        <input type="file" class="form-control" name="file" id="file" onchange="readURL(this);" />
+      </div>
+      <button id="insert_btn" class="btn btn-primary">상품등록하기</button>
+    </form>
+  </div>
+  <script src="https://cdn.ckeditor.com/4.20.0/basic/ckeditor.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.1.slim.js" integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+  <script>
+    //db 등록
+    window.onload = function () {
+      //ckeditor
+      var editor = CKEDITOR.replace("editor");
+      $("#insert_btn").click(function () {
+        var content = editor.getData();
+        if (confirm("등록하시겠습니까?") == true) {
+          $("input[name=productDetail]").attr("value", content);
+          $("#insertProduct").attr("action", "insertProduct/insert");
+          $("#insertProduct").submit();
+        } else {
+          return;
+        }
+      });
+    };
+    //이미지 미리보기
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById("preview").src = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+      } else {
+        document.getElementById("preview").src = "";
+      }
+    }
+  </script>
+</section>

@@ -7,6 +7,7 @@ const detail = require("./user/detail.js");
 const home = require("./user/home.js");
 const payment = require("./user/payment.js");
 const addProduct = require("./user/addProduct.js");
+const adminInsertProduct = require("./admin/insertProduct.js");
 const adminMain = require("./admin/main.js");
 
 router.use("/", (req, res, next) => {
@@ -36,4 +37,5 @@ router.use("/user/addProduct", addProduct);
 
 // 관리자
 router.use("/admin/main", adminMain);
+router.use("/admin/insertProduct", adminInsertProduct);
 module.exports = router;

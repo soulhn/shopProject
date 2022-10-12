@@ -31,6 +31,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+//public 경로 지정 시 인식
+app.use("/public", express.static(path.join(__dirname, "public")));
 
 // 세션 설정
 app.use(

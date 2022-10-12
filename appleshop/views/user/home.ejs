@@ -7,7 +7,7 @@
     <header class="bg-dark py-5">
       <div class="container px-4 px-lg-5 my-5">
         <div class="text-center text-white">
-          <img src="../images/mainLogo.png" alt="mainLogo" />
+          <img src="../img/mainLogo.png" alt="mainLogo" />
         </div>
       </div>
     </header>
@@ -19,7 +19,7 @@
           <div class="col mb-5">
             <div class="card h-100">
               <!-- Product image-->
-              <%- `<img class="card-img-top" src=".././images/shoe${i}.webp" alt="shoe1" />` %>
+              <img class="card-img-top" src="../<%=results[i].PRODUCT_IMG%>" alt="shoe1" />
               <!-- Product details-->
               <div class="card-body p-4">
                 <div class="text-center">
