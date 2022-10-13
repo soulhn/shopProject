@@ -3,10 +3,15 @@ var router = express.Router();
 var oracledb = require("oracledb");
 
 const login = require("./login");
+
+//회원 진입
 const detail = require("./user/detail.js");
 const home = require("./user/home.js");
 const payment = require("./user/payment.js");
-const addProduct = require("./user/addProduct.js");
+const product = require("./user/product.js");
+const productDetail = require("./user/productDetail.js");
+
+//관리자 페이지
 const adminInsertProduct = require("./admin/insertProduct.js");
 const adminMain = require("./admin/main.js");
 
@@ -33,7 +38,8 @@ router.use("/", login);
 router.use("/user/detail", detail);
 router.use("/user/home", home);
 router.use("/user/payment", payment);
-router.use("/user/addProduct", addProduct);
+router.use("/user/product", product);
+router.use("/user/productDetail", productDetail);
 
 // 관리자
 router.use("/admin/main", adminMain);

@@ -10,6 +10,12 @@
     <form action="" id="insertProduct" method="post" enctype="multipart/form-data" autocomplete="off" accept-charset="UTF-8">
       <h2>상품정보등록</h2>
       <input type="hidden" name="productDetail" />
+      <!-- 상품사진 -->
+      <div class="mb-3"><img id="preview" /></div>
+      <div class="mb-3">
+        <label for="file" class="form-label">상품대표이미지</label>
+        <input type="file" class="form-control" name="file" id="file" onchange="readURL(this);" />
+      </div>
       <!-- 물품명 -->
       <div class="mb-3">
         <label for="productName" class="form-label">물품명</label>
@@ -37,11 +43,16 @@
         <input type="number" class="form-control" name="productCount" required />
       </div>
 
-      <div class="mb-3"><img id="preview" /></div>
       <div class="mb-3">
-        <label for="file" class="form-label">상품이미지</label>
-        <input type="file" class="form-control" name="file" id="file" onchange="readURL(this);" />
+        <label for="file" class="form-label">추가 첨부 파일</label>
+
+        <input type="file" name="file" id="file" class="form-control my-4" />
+        <input type="file" name="file" id="file" class="form-control my-4" />
+        <input type="file" name="file" id="file" class="form-control my-4" />
+        <input type="file" name="file" id="file" class="form-control my-4" />
+        <input type="file" name="file" id="file" class="form-control my-4" />
       </div>
+
       <button id="insert_btn" class="btn btn-primary">상품등록하기</button>
     </form>
   </div>

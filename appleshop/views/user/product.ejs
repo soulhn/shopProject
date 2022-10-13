@@ -1,35 +1,94 @@
-<!-- Product section-->
-<section class="py-5">
+<!-- Header-->
+<header class="bg-dark py-5">
   <div class="container px-4 px-lg-5 my-5">
-    <div class="row gx-4 gx-lg-5 align-items-center">
-      <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="../img/shoedetail1.webp" alt="..." /></div>
-      <div class="col-md-6">
-        <div class="small mb-1">상품 코드 : 123</div>
-        <h1 class="display-5 fw-bolder">Shop item template</h1>
-        <div class="fs-5 mb-5">
-          <span class="text-decoration-line-through">12,000원</span>
-          <span>10,000원</span>
-        </div>
-        <p class="lead">
-          가벼운 검은색 신발, 바로 인생을 방황하여도, 인간의 것이다. 끓는 얼마나 튼튼하며, 불어 새 위하여서. 끝까지 속에 가장 것이다. 노년에게서 얼마나 얼마나 뜨거운지라, 보배를 실로 대한 이성은 황금시대다. 커다란 위하여 천하를 노래하며 뜨고,
-          찾아다녀도, 내려온 보라.
-        </p>
-        <div class="d-flex">
-          <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-          <button class="btn btn-outline-dark flex-shrink-0" type="button">
-            <i class="bi-cart-fill me-1"></i>
-            장바구니에 담기
-          </button>
-        </div>
-      </div>
+    <div class="text-center text-white">
+      <img src="../img/mainLogo.png" alt="mainLogo" />
     </div>
   </div>
-</section>
-<!-- Related items section-->
-<section class="py-5 bg-light">
+</header>
+<!-- Section-->
+<section class="py-5">
   <div class="container px-4 px-lg-5 mt-5">
-    <h2 class="fw-bolder mb-4">다른 상품 더 둘러보기</h2>
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+      <% for(let i = 0; i < results.length; i++){ %>
+      <div class="col mb-5">
+        <div class="card h-100">
+          <!-- Product image-->
+          <img class="card-img-top" src="../<%=results[i].PRODUCT_IMG%>" alt="shoe1" />
+          <!-- Product details-->
+          <div class="card-body p-4">
+            <div class="text-center">
+              <!-- Product name-->
+              <div class="d-flex justify-content-center small text-warning mb-2">
+                <div class="bi-star-fill"></div>
+                <div class="bi-star-fill"></div>
+                <div class="bi-star-fill"></div>
+                <div class="bi-star-fill"></div>
+                <div class="bi-star-fill"></div>
+              </div>
+              <h5 class="fw-bolder"><%= results[i].PRODUCT_NAME %></h5>
+
+              <!-- Product price-->
+              <%= results[i].PRODUCT_PRICE %>원
+            </div>
+          </div>
+          <!-- Product actions-->
+          <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="productDetail?productId=<%=productList[i].PRODUCT_ID%>">상세 페이지</a></div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+
+      <div class="col mb-5">
+        <div class="card h-100">
+          <!-- Product image-->
+          <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+          <!-- Product details-->
+          <div class="card-body p-4">
+            <div class="text-center">
+              <!-- Product name-->
+              <h5 class="fw-bolder">Popular Item</h5>
+              <!-- Product reviews-->
+              <div class="d-flex justify-content-center small text-warning mb-2">
+                <div class="bi-star-fill"></div>
+                <div class="bi-star-fill"></div>
+                <div class="bi-star-fill"></div>
+                <div class="bi-star-fill"></div>
+                <div class="bi-star-fill"></div>
+              </div>
+              <!-- Product price-->
+              $40.00
+            </div>
+          </div>
+          <!-- Product actions-->
+          <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="col mb-5">
+        <div class="card h-100">
+          <!-- Sale badge-->
+          <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+          <!-- Product image-->
+          <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+          <!-- Product details-->
+          <div class="card-body p-4">
+            <div class="text-center">
+              <!-- Product name-->
+              <h5 class="fw-bolder">Sale Item</h5>
+              <!-- Product price-->
+              <span class="text-muted text-decoration-line-through">$50.00</span>
+              $25.00
+            </div>
+          </div>
+          <!-- Product actions-->
+          <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
+          </div>
+        </div>
+      </div>
       <div class="col mb-5">
         <div class="card h-100">
           <!-- Product image-->
@@ -40,7 +99,7 @@
               <!-- Product name-->
               <h5 class="fw-bolder">Fancy Product</h5>
               <!-- Product price-->
-              $40.00 - $80.00
+              $120.00 - $280.00
             </div>
           </div>
           <!-- Product actions-->
@@ -81,28 +140,6 @@
       </div>
       <div class="col mb-5">
         <div class="card h-100">
-          <!-- Sale badge-->
-          <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-          <!-- Product image-->
-          <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-          <!-- Product details-->
-          <div class="card-body p-4">
-            <div class="text-center">
-              <!-- Product name-->
-              <h5 class="fw-bolder">Sale Item</h5>
-              <!-- Product price-->
-              <span class="text-muted text-decoration-line-through">$50.00</span>
-              $25.00
-            </div>
-          </div>
-          <!-- Product actions-->
-          <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-          </div>
-        </div>
-      </div>
-      <div class="col mb-5">
-        <div class="card h-100">
           <!-- Product image-->
           <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
           <!-- Product details-->
@@ -131,4 +168,3 @@
     </div>
   </div>
 </section>
-<!-- Footer-->
