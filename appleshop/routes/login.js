@@ -29,6 +29,7 @@ router.post("/login", async (req, res) => {
     } else {
       // 조회되는 유저정보가 있는경우
       const userName = result.USER_NAME;
+      const userId = result.USER_ID;
 
       // 일반회원인지 관리자인지 판단
       if (result.USER_AUTH == "관리자") {
@@ -39,6 +40,7 @@ router.post("/login", async (req, res) => {
           req.session.user = {
             sessionEmail: loginEmail,
             sessionName: userName,
+            sessionId: userId,
           };
           res.redirect("/admin/main");
         }
@@ -50,6 +52,7 @@ router.post("/login", async (req, res) => {
           req.session.user = {
             sessionEmail: loginEmail,
             sessionName: userName,
+            sessionId: userId,
           };
           res.redirect("/user/home");
         }
@@ -78,8 +81,8 @@ async function selectDatabase(loginId, loginPwd) {
   try {
     let connection = await oracledb.getConnection(ORACLE_CONFIG);
 
-    let sql = "select user_email, user_name, user_auth from member \
-                    where user_email = :email and user_pwd = :pwd";
+    let sql = "select user_id, user_email, user_name, user_auth from member \
+                  where user_email = :email and user_pwd = :pwd";
     let param = [loginId, loginPwd]; // 조건 값
     let options = {
       outFormat: oracledb.OUT_FORMAT_OBJECT, // query result format

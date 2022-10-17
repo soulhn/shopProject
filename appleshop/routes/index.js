@@ -10,6 +10,8 @@ const home = require("./user/home.js");
 const payment = require("./user/payment.js");
 const product = require("./user/product.js");
 const productDetail = require("./user/productDetail.js");
+const insertCart = require("./user/insertCart.js");
+const cart = require("./user/cart.js");
 
 //관리자 페이지
 const adminInsertProduct = require("./admin/insertProduct.js");
@@ -40,7 +42,8 @@ router.use("/user/home", home);
 router.use("/user/payment", payment);
 router.use("/user/product", product);
 router.use("/user/productDetail", productDetail);
-
+router.use("/user/cart", cart);
+router.use("/user/insertCart", insertCart);
 // 관리자
 router.use("/admin/main", adminMain);
 router.use("/admin/insertProduct", adminInsertProduct);

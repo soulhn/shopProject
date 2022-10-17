@@ -27,4 +27,19 @@ async function selectProductDetail(productId) {
   return result.rows;
 }
 
+//select
+async function selectProductFile(productId) {
+  let connection = await oracledb.getConnection(ORACLE_CONFIG);
+  var sql = " SELECT * FROM PRODUCTFILE WHERE PRODUCT_ID = :product_id ";
+
+  let options = {
+    outFormat: oracledb.OUT_FORMAT_OBJECT, // query result format
+  };
+  let result = await connection.execute(sql, [productId], options);
+
+  await connection.close();
+
+  return result.rows;
+}
+
 module.exports = router;

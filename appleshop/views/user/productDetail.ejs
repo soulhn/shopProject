@@ -4,19 +4,17 @@
     <div class="row gx-4 gx-lg-5 align-items-center">
       <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="../../<%=results[0].PRODUCT_IMG%>" alt="..." /></div>
       <div class="col-md-6">
-        <div class="small mb-1">상품 코드 : 123</div>
-        <h1 class="display-5 fw-bolder"><%=results[0].PRODUCT_NAME%></h1>
+        <div class="small mb-1">상품 코드 : <%=productDetail[0].PRODUCT_ID%></div>
+        <h1 class="display-5 fw-bolder"><%=productDetail[0].PRODUCT_NAME%></h1>
         <div class="fs-5 mb-5">
           <span class="text-decoration-line-through">30,000원</span>
-          <span><%=results[0].PRODUCT_PRICE%>원</span>
+          <span><%=results[0].PRODUCT_PRICE%>원</span><br />
+          <span>남은 수량 : <%=productDetail[0].PRODUCT_COUNT%>개</span>
         </div>
-        <p class="lead">
-          가벼운 검은색 신발, 바로 인생을 방황하여도, 인간의 것이다. 끓는 얼마나 튼튼하며, 불어 새 위하여서. 끝까지 속에 가장 것이다. 노년에게서 얼마나 얼마나 뜨거운지라, 보배를 실로 대한 이성은 황금시대다. 커다란 위하여 천하를 노래하며 뜨고,
-          찾아다녀도, 내려온 보라.
-        </p>
+        <%-productDetail[0].PRODUCT_DETAIL%>
         <div class="d-flex">
-          <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-          <button class="btn btn-outline-dark flex-shrink-0" type="button">
+          <input class="form-control text-center me-3" id="result" type="number" value="1" style="max-width: 3rem" min="1" max="<%=productDetail[0].PRODUCT_COUNT%>" />
+          <button class="btn btn-outline-dark flex-shrink-0" type="button" onclick="addCart('<%=productDetail[0].PRODUCT_ID%>')">
             <i class="bi-cart-fill me-1"></i>
             장바구니에 담기
           </button>
@@ -25,6 +23,33 @@
     </div>
   </div>
 </section>
+<!-- 캐러셀 시작 -->
+<section class="container col-md-4">
+  <span>디테일 컷</span>
+  <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="../../img/shoe1.webp" class="d-block w-100" alt="..." />
+      </div>
+      <div class="carousel-item">
+        <img src="../../<%=results[0].PRODUCT_IMG%>" class="d-block w-100" alt="..." />
+      </div>
+      <div class="carousel-item">
+        <img src="../../<%=results[0].PRODUCT_IMG%>" class="d-block w-100" alt="..." />
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+      <span style="filter: invert(100%)" class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+      <span style="filter: invert(100%)" class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</section>
+<!-- 캐러셀 종료 -->
+
 <!-- Related items section-->
 <section class="py-5 bg-light">
   <div class="container px-4 px-lg-5 mt-5">
@@ -132,3 +157,24 @@
   </div>
 </section>
 <!-- Footer-->
+
+<script>
+  function addCart(productId) {
+    var count = document.getElementById("result").value;
+    console.log(count);
+    fetch("/user/insertCart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        productId: productId,
+        count: document.getElementById("result").value,
+      }),
+    })
+      .then((response) => response.json())
+      .then(function (data) {
+        alert("상품이 장바구니에 담겼습니다.");
+      });
+  }
+</script>
