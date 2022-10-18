@@ -7,8 +7,10 @@ const { ORACLE_CONFIG } = require("../../config/db");
 router.get("/", async function (req, res, next) {
   const productId = req.query.productId == undefined ? 1 : req.query.productId;
   results = await selectProductDetail(productId);
+  var productFile = await selectProductFile(productId);
   res.render("user/productDetail", {
     productDetail: results,
+    productFile: productFile,
   });
 });
 
@@ -41,5 +43,4 @@ async function selectProductFile(productId) {
 
   return result.rows;
 }
-
 module.exports = router;

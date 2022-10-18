@@ -26,18 +26,20 @@
 <!-- 캐러셀 시작 -->
 <section class="container col-md-4">
   <span>디테일 컷</span>
+  <% if(productFile.length != 0){ %>
   <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
     <div class="carousel-inner">
+      <% for(i=0; i< productFile.length; i++){%> <% if(i==0) {%>
       <div class="carousel-item active">
-        <img src="../../img/shoe1.webp" class="d-block w-100" alt="..." />
+        <img src="../../<%=productFile[i].FILE_ROUTE%>" class="d-block w-100" alt="..." />
       </div>
+      <%} else{%>
       <div class="carousel-item">
-        <img src="../../<%=results[0].PRODUCT_IMG%>" class="d-block w-100" alt="..." />
+        <img src="../../<%=productFile[i].FILE_ROUTE%>" class="d-block w-100" alt="..." />
       </div>
-      <div class="carousel-item">
-        <img src="../../<%=results[0].PRODUCT_IMG%>" class="d-block w-100" alt="..." />
-      </div>
+      <%}%> <%}%>
     </div>
+
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
       <span style="filter: invert(100%)" class="carousel-control-prev-icon" aria-hidden="true"></span>
       <span class="visually-hidden">Previous</span>
@@ -47,6 +49,11 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
+  <%} else{%>
+  <div class="container">
+    <h2>상품 디테일 컷 준비 중입니다.</h2>
+  </div>
+  <%}%>
 </section>
 <!-- 캐러셀 종료 -->
 

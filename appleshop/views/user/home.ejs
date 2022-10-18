@@ -40,18 +40,24 @@
 
 <!-- 모달창 시작 -->
 <!-- position-static, d-block, bg-secondary -->
+
+<% let mdNum = Math.floor(Math.random() * results.length) %>
+
 <div class="shsh modal modal-alert py-5" tabindex="-1" role="dialog" id="modalChoice">
   <div class="modal-dialog" role="document">
     <div class="modal-content rounded-3 shadow">
       <div class="modal-body p-4 text-center">
-        <h2 class="fw-bold mb-0">인기 상품1</h2>
-        <img src="../img/shoe2.webp" alt="x" id="img1" />
-        <h3>상세설명, 상세설명, 상세설명, 상세설명, 상세설명, 상세설명</h3>
-        <p class="mb-0">10000원</p>
+        <h2 class="fw-bold mb-0">상품 추천</h2>
+        <img src="../<%=results[mdNum].PRODUCT_IMG%>" alt="x" id="img1" />
+        <h3></h3>
+        <h3><%= results[mdNum].PRODUCT_NAME %></h3>
+        <p class="mb-0"><%= results[mdNum].PRODUCT_PRICE %>원</p>
       </div>
 
       <div class="modal-footer flex-nowrap p-0">
-        <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 border-end"><strong>바로구매</strong></button>
+        <button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0 border-end">
+          <strong><a style="text-decoration-line: none" href="productDetail?productId=<%=productList[mdNum].PRODUCT_ID%>">상품으로</a></strong>
+        </button>
         <button type="button" id="closeBtn" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 m-0 rounded-0" data-bs-dismiss="modal">다음에 구매</button>
       </div>
     </div>
@@ -94,7 +100,7 @@
           </div>
           <!-- Product actions-->
           <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">상세 페이지</a></div>
+            <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="productDetail?productId=<%=productList[i].PRODUCT_ID%>">상세 페이지</a></div>
           </div>
         </div>
       </div>
@@ -231,8 +237,6 @@
 
 <script>
   document.querySelector(".shsh").addEventListener("click", function (e) {
-    console.log(e.target);
-    console.log(document.querySelector(".shsh"));
     if (e.target === document.querySelector(".shsh")) {
       document.querySelector(".shsh").classList.add("hidden");
     }
